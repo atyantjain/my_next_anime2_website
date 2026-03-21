@@ -1,26 +1,28 @@
-import { RecommendRequest, RecommendResponse } from "@/types/anime";
-import { getMockRecommendations } from "@/data/mockAnime";
+import { Anime, RecommendRequest, RecommendResponse } from "@/types/anime";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+
+export interface TitleEntry {
+  title: string;
+  artwork_url: string;
+}
+
+export async function fetchTitles(): Promise<TitleEntry[]> {
+  const res = await fetch(`${API_BASE_URL}/titles`);
+  const data = await res.json();
+  return data.titles;
+}
+
+export async function fetchAnimeDetails(title: string): Promise<Anime> {
+  const res = await fetch(`${API_BASE_URL}/anime/${encodeURIComponent(title)}`);
+  return res.json();
+}
 
 export async function fetchRecommendations(params: RecommendRequest): Promise<RecommendResponse> {
-  if (API_BASE_URL) {
-    const res = await fetch(`${API_BASE_URL}/recommend`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params),
-    });
-    return res.json();
-  }
-
-  // Mock delay
-  await new Promise((r) => setTimeout(r, 600));
-  const recs = getMockRecommendations(
-    params.title,
-    params.top_k,
-    params.min_score,
-    params.same_genre_only,
-    params.feature_weights
-  );
-  return { recommendations: recs };
+  const res = await fetch(`${API_BASE_URL}/recommend`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params),
+  });
+  return res.json();
 }

@@ -14,7 +14,8 @@ export function useRecommendations() {
       topK: number,
       weights: FeatureWeights,
       minScore?: number,
-      sameGenreOnly?: boolean
+      sameGenreOnly?: boolean,
+      sameComposerOnly?: boolean
     ) => {
       setLoading(true);
       try {
@@ -23,6 +24,7 @@ export function useRecommendations() {
           top_k: topK,
           min_score: minScore,
           same_genre_only: sameGenreOnly,
+          same_composer_only: sameComposerOnly,
           feature_weights: weights,
         });
         setRecommendations(res.recommendations);

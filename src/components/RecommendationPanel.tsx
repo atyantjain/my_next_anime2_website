@@ -36,12 +36,9 @@ const RecommendationPanel = ({ recommendations, loading }: Props) => {
   }
 
   return (
-    <div className="space-y-1 max-h-[600px] overflow-y-auto pr-1">
+    <div className="space-y-2 max-h-[800px] overflow-y-auto pr-1">
       {recommendations.map((rec, i) => (
-        <div key={rec.title}>
-          <RecommendationCard anime={rec} rank={i + 1} />
-          {i < recommendations.length - 1 && <div className="border-b border-border mx-3" />}
-        </div>
+        <RecommendationCard key={rec.title} anime={rec} rank={i + 1} />
       ))}
     </div>
   );

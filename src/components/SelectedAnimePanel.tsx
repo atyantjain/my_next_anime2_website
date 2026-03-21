@@ -1,4 +1,5 @@
 import { Anime } from "@/types/anime";
+import { Music } from "lucide-react";
 
 const SelectedAnimePanel = ({ anime }: { anime: Anime | null }) => {
   if (!anime) {
@@ -24,7 +25,7 @@ const SelectedAnimePanel = ({ anime }: { anime: Anime | null }) => {
           <p className="text-sm text-muted-foreground">{anime.episodes} episodes</p>
           <p className="text-sm text-muted-foreground">{anime.aired}</p>
           <p className="text-sm text-muted-foreground">{anime.studios}</p>
-          <p className="text-sm text-muted-foreground">🎵 {anime.composer}</p>
+          <p className="text-sm text-muted-foreground flex items-center gap-1"><Music className="w-3.5 h-3.5" /> {anime.composer}</p>
           <p className="text-sm text-muted-foreground">Mood: {anime.mood}</p>
         </div>
       </div>

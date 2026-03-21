@@ -24,11 +24,11 @@ const FeatureWeightControls = ({ weights, useDefault, onToggleDefault, onToggleF
   const activeWeights = useDefault ? DEFAULT_WEIGHTS : weights;
 
   return (
-    <div className="bg-card border border-border rounded-lg p-4 md:p-6 mx-4 md:mx-8 -mt-6 relative z-20 shadow-lg">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="bg-card border border-border mx-auto max-w-3xl rounded-lg -mt-6 px-6 py-4 md:px-8 md:py-4 relative z-20">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         <button
           onClick={onToggleDefault}
-          className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
+          className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
             useDefault
               ? "bg-primary text-primary-foreground shadow-md"
               : "bg-muted text-muted-foreground hover:bg-muted/80"
@@ -42,21 +42,23 @@ const FeatureWeightControls = ({ weights, useDefault, onToggleDefault, onToggleF
           return (
             <button
               key={f.key}
-              onClick={() => !useDefault && onToggleFeature(f.key)}
-              disabled={useDefault}
-              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              onClick={() => {
+                if (useDefault) onToggleDefault();
+                onToggleFeature(f.key);
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 ${
                 isHigh
                   ? "bg-primary/15 text-primary border border-primary/30"
                   : "bg-muted text-muted-foreground border border-transparent"
-              } ${useDefault ? "opacity-50 cursor-not-allowed" : "hover:scale-105"}`}
+              }`}
             >
               {f.label}
             </button>
           );
         })}
       </div>
-      <p className="mt-3 text-xs text-muted-foreground">
-        Active weights — {FEATURES.map((f) => `${f.label}: ${activeWeights[f.key]}`).join(" · ")}
+      <p className="mt-3 text-xs text-muted-foreground text-center">
+        Click a feature to boost its influence on recommendations. Highlighted = high weight. Click again to lower it.
       </p>
     </div>
   );

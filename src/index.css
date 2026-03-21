@@ -15,73 +15,73 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 10%;
 
-    --primary: 239 84% 67%;
+    --primary: 263 70% 48%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 263 70% 50%;
+    --secondary: 273 80% 30%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 260 5% 96%;
+    --muted-foreground: 260 4% 46%;
 
-    --accent: 263 70% 50%;
+    --accent: 263 70% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 239 84% 67%;
+    --border: 260 6% 90%;
+    --input: 260 6% 90%;
+    --ring: 263 70% 48%;
 
     --radius: 0.75rem;
 
     --genre-bg: 263 83% 95%;
-    --genre-text: 263 70% 48%;
-    --theme-bg: 217 91% 93%;
-    --theme-text: 224 76% 48%;
+    --genre-text: 263 70% 40%;
+    --theme-bg: 270 75% 95%;
+    --theme-text: 270 60% 40%;
 
-    --gradient-start: 239 84% 67%;
-    --gradient-end: 270 42% 56%;
+    --gradient-start: 263 70% 48%;
+    --gradient-end: 273 80% 30%;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-foreground: 260 5.3% 26.1%;
+    --sidebar-primary: 263 70% 48%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 263 10% 95.9%;
+    --sidebar-accent-foreground: 260 5.9% 10%;
+    --sidebar-border: 260 13% 91%;
+    --sidebar-ring: 263 70% 48%;
   }
 
   .dark {
-    --background: 240 10% 6%;
-    --foreground: 0 0% 95%;
-    --card: 240 10% 9%;
-    --card-foreground: 0 0% 95%;
-    --popover: 240 10% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 239 84% 67%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 263 70% 50%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 240 6% 16%;
-    --muted-foreground: 240 4% 65%;
-    --accent: 263 70% 50%;
-    --accent-foreground: 0 0% 100%;
+    --background: 220 6% 10%;
+    --foreground: 0 0% 93%;
+    --card: 220 6% 14%;
+    --card-foreground: 0 0% 93%;
+    --popover: 220 6% 14%;
+    --popover-foreground: 0 0% 93%;
+    --primary: 263 50% 80%;
+    --primary-foreground: 263 70% 15%;
+    --secondary: 270 40% 70%;
+    --secondary-foreground: 270 60% 15%;
+    --muted: 260 5% 19%;
+    --muted-foreground: 260 5% 60%;
+    --accent: 263 50% 80%;
+    --accent-foreground: 263 70% 15%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 95%;
-    --border: 240 6% 18%;
-    --input: 240 6% 18%;
-    --ring: 239 84% 67%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --destructive-foreground: 0 0% 93%;
+    --border: 260 5% 20%;
+    --input: 260 5% 20%;
+    --ring: 263 50% 80%;
+    --sidebar-background: 260 6% 15%;
+    --sidebar-foreground: 260 5% 93%;
+    --sidebar-primary: 263 70% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 260 5% 20%;
+    --sidebar-accent-foreground: 260 5% 93%;
+    --sidebar-border: 260 5% 22%;
+    --sidebar-ring: 263 70% 48%;
   }
 }
 
@@ -93,4 +93,33 @@
     @apply bg-background text-foreground font-sans;
     font-family: 'DM Sans', sans-serif;
   }
+}
+
+/* Hero banner animations (matching app.py) */
+@keyframes slowZoom {
+  0%, 100% { transform: scale(1); background-position: center; }
+  25% { transform: scale(1.05); background-position: center top; }
+  50% { transform: scale(1.08); background-position: center; }
+  75% { transform: scale(1.05); background-position: center bottom; }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(180deg); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-10px) scale(1.1); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translateX(0px) rotate(0deg); }
+  50% { transform: translateX(10px) rotate(-180deg); }
+}
+
+@keyframes float4 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-8px) translateX(-5px); }
+  75% { transform: translateY(8px) translateX(5px); }
 }

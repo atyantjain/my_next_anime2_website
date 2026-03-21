@@ -26,6 +26,7 @@ export interface RecommendRequest {
   top_k: number;
   min_score?: number;
   same_genre_only?: boolean;
+  same_composer_only?: boolean;
   feature_weights: FeatureWeights;
 }
 

@@ -1,20 +1,30 @@
 import { useState, useRef, useEffect } from "react";
-import { Anime } from "@/types/anime";
 import { Search } from "lucide-react";
 
-interface Props {
-  animeList: Anime[];
-  onSelect: (anime: Anime) => void;
+interface TitleEntry {
+  title: string;
+  artwork_url: string;
 }
 
-const AnimeSearch = ({ animeList, onSelect }: Props) => {
-  const [query, setQuery] = useState("");
+interface Props {
+  titles: TitleEntry[];
+  query?: string;
+  setQuery?: (q: string) => void;
+  onSelect: (title: string) => void;
+}
+
+
+const AnimeSearch = ({ titles, onSelect, query: controlledQuery, setQuery: setControlledQuery }: Props) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const isControlled = controlledQuery !== undefined && setControlledQuery !== undefined;
+  const [uncontrolledQuery, setUncontrolledQuery] = useState("");
+  const query = isControlled ? controlledQuery : uncontrolledQuery;
+  const setQuery = isControlled ? setControlledQuery : setUncontrolledQuery;
 
   const filtered = query
-    ? animeList.filter((a) => a.title.toLowerCase().includes(query.toLowerCase()))
-    : animeList;
+    ? titles.filter((t) => t.title.toLowerCase().includes(query.toLowerCase())).slice(0, 50)
+    : titles.slice(0, 50);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -38,15 +48,22 @@ const AnimeSearch = ({ animeList, onSelect }: Props) => {
         />
       </div>
       {open && filtered.length > 0 && (
-        <div className="absolute z-30 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-popover shadow-lg">
-          {filtered.map((a) => (
+        <div className="absolute z-30 mt-1 w-full max-h-72 overflow-y-auto rounded-lg border border-border bg-popover shadow-lg">
+          {filtered.map((entry) => (
             <button
-              key={a.title}
-              className="w-full text-left px-4 py-2.5 text-sm hover:bg-muted transition-colors"
-              onClick={() => { onSelect(a); setQuery(a.title); setOpen(false); }}
+              key={entry.title}
+              className="w-full text-left px-3 py-2 flex items-center gap-3 hover:bg-muted transition-colors"
+              onClick={() => { onSelect(entry.title); setOpen(false); }}
             >
-              <span className="font-medium">{a.title}</span>
-              <span className="ml-2 text-muted-foreground">⭐ {a.score}</span>
+              {entry.artwork_url && (
+                <img
+                  src={entry.artwork_url}
+                  alt={entry.title}
+                  className="w-8 h-11 object-cover rounded flex-shrink-0"
+                  loading="lazy"
+                />
+              )}
+              <span className="font-medium text-sm">{entry.title}</span>
             </button>
           ))}
         </div>
