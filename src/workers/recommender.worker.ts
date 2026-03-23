@@ -83,6 +83,19 @@ function buildFeatureTexts(df: AnimeRow[], weights: FeatureWeights): string[] {
     return s;
   }
 
+  /** Turn "A-1 Pictures, Bones" → "a1_pictures bones" (atomic tokens per value) */
+  function compoundTokens(value: string): string {
+    if (!value) return "";
+    const sep = value.includes("|") ? "|" : ",";
+    return value
+      .split(sep)
+      .map((v) =>
+        v.trim().toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, "_").replace(/^_|_$/g, "")
+      )
+      .filter((v) => v.length > 1)
+      .join(" ");
+  }
+
   return df.map((row) => {
     const title = row.title ?? "";
     const synopsis = row.synopsis ?? "";
@@ -93,15 +106,15 @@ function buildFeatureTexts(df: AnimeRow[], weights: FeatureWeights): string[] {
     const mood = row.mood ?? "";
 
     const parts = [
-      (title + " ").repeat(1),
-      (genres + " ").repeat(weights.genres),
-      (themes + " ").repeat(weights.themes),
-      (composer + " ").repeat(weights.composer),
-      (mood + " ").repeat(weights.mood),
-      (studio + " ").repeat(weights.studio),
-      (synopsis + " ").repeat(weights.synopsis),
+      cleanText(title),
+      (compoundTokens(genres) + " ").repeat(weights.genres),
+      (compoundTokens(themes) + " ").repeat(weights.themes),
+      (compoundTokens(composer) + " ").repeat(weights.composer),
+      (compoundTokens(mood) + " ").repeat(weights.mood),
+      (compoundTokens(studio) + " ").repeat(weights.studio),
+      (cleanText(synopsis) + " ").repeat(weights.synopsis),
     ];
-    return cleanText(parts.join(" "));
+    return parts.join(" ").replace(/\s+/g, " ").trim();
   });
 }
 
