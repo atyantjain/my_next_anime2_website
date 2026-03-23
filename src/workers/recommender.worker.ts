@@ -126,7 +126,7 @@ self.onmessage = async (e: MessageEvent) => {
   try {
     if (type === "INIT") {
       _df = await loadCsv();
-      const titles = _df.map((r) => ({ title: r.title, artwork_url: r.artwork_url ?? "" }));
+      const titles = _df.map((r) => ({ title: r.title, title_english: r.title_english ?? "", artwork_url: r.artwork_url ?? "" }));
       self.postMessage({ type: "READY", payload: { titles } });
       return;
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Anime, FeatureWeights } from "@/types/anime";
 import { fetchTitles, fetchAnimeDetails, TitleEntry } from "@/lib/api";
 import { extractDominantColors } from "@/lib/colors";
@@ -10,12 +10,35 @@ import SelectedAnimePanel from "@/components/SelectedAnimePanel";
 import FilterControls from "@/components/FilterControls";
 import RecommendationPanel from "@/components/RecommendationPanel";
 
+const JP_CHARS = [
+  { char: '花', top: '8%',  left: '5%',  size: '1.8rem', anim: 'float1', dur: '7s',  opacity: 0.12 },
+  { char: '月', top: '20%', left: '12%', size: '2.5rem', anim: 'float2', dur: '9s',  opacity: 0.09 },
+  { char: '夢', top: '55%', left: '20%', size: '2rem',   anim: 'float3', dur: '6s',  opacity: 0.11 },
+  { char: '剣', top: '35%', left: '30%', size: '3rem',   anim: 'float1', dur: '8s',  opacity: 0.07 },
+  { char: '愛', top: '75%', left: '40%', size: '1.6rem', anim: 'float4', dur: '10s', opacity: 0.13 },
+  { char: '竜', top: '15%', left: '50%', size: '2.8rem', anim: 'float2', dur: '7s',  opacity: 0.08 },
+  { char: '神', top: '60%', left: '60%', size: '2.2rem', anim: 'float3', dur: '9s',  opacity: 0.10 },
+  { char: '魔', top: '42%', left: '68%', size: '1.9rem', anim: 'float1', dur: '6s',  opacity: 0.12 },
+  { char: '侍', top: '80%', left: '75%', size: '2.6rem', anim: 'float4', dur: '8s',  opacity: 0.08 },
+  { char: '道', top: '28%', left: '82%', size: '2rem',   anim: 'float2', dur: '10s', opacity: 0.11 },
+  { char: '天', top: '65%', left: '90%', size: '2.4rem', anim: 'float3', dur: '7s',  opacity: 0.09 },
+  { char: '心', top: '48%', left: '8%',  size: '2.1rem', anim: 'float4', dur: '9s',  opacity: 0.10 },
+  { char: '力', top: '88%', left: '35%', size: '1.7rem', anim: 'float1', dur: '6s',  opacity: 0.14 },
+  { char: '星', top: '5%',  left: '55%', size: '2.3rem', anim: 'float2', dur: '8s',  opacity: 0.09 },
+  { char: '風', top: '70%', left: '72%', size: '1.5rem', anim: 'float3', dur: '7s',  opacity: 0.13 },
+  { char: '鬼', top: '32%', left: '88%', size: '2.7rem', anim: 'float4', dur: '9s',  opacity: 0.07 },
+  { char: '光', top: '92%', left: '25%', size: '1.6rem', anim: 'float1', dur: '10s', opacity: 0.11 },
+  { char: '武', top: '18%', left: '45%', size: '2.2rem', anim: 'float2', dur: '6s',  opacity: 0.09 },
+  { char: '命', top: '52%', left: '63%', size: '1.8rem', anim: 'float3', dur: '8s',  opacity: 0.12 },
+  { char: '気', top: '10%', left: '95%', size: '2rem',   anim: 'float4', dur: '7s',  opacity: 0.10 },
+];
+
 const Index = () => {
   const [titles, setTitles] = useState<TitleEntry[]>([]);
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [displayGradient, setDisplayGradient] = useState<string>("");
-  const [opacity, setOpacity] = useState(0);
+  const [gradients, setGradients] = useState({ A: "", B: "" });
+  const [activeLayer, setActiveLayer] = useState<'A' | 'B'>('A');
   const [useDefault, setUseDefault] = useState(true);
   const [weights, setWeights] = useState<FeatureWeights>(DEFAULT_WEIGHTS);
   const [topK, setTopK] = useState(12);
@@ -39,22 +62,19 @@ const Index = () => {
     }).catch(console.error);
   }, []);
 
-  // Extract dominant colors when a new anime is selected
+  // Extract dominant colors when a new anime is selected — true crossfade via two layers
   useEffect(() => {
     if (selectedAnime?.artwork_url) {
-      // Fade out first
-      setOpacity(0);
       extractDominantColors(selectedAnime.artwork_url).then((colors) => {
-        const newGradient = `linear-gradient(135deg, ${colors[0]}30, ${colors[1]}30, ${colors[2]}30)`;
-        // Wait for fade-out, then swap gradient and fade in
-        setTimeout(() => {
-          setDisplayGradient(newGradient);
-          requestAnimationFrame(() => setOpacity(1));
-        }, 500);
+        const newGradient = `linear-gradient(135deg, ${colors[0]}50, ${colors[1]}50, ${colors[2]}50)`;
+        setActiveLayer((prev) => {
+          const next = prev === 'A' ? 'B' : 'A';
+          setGradients((g) => ({ ...g, [next]: newGradient }));
+          return next;
+        });
       });
     } else {
-      setOpacity(0);
-      setTimeout(() => setDisplayGradient(""), 500);
+      setGradients({ A: "", B: "" });
     }
   }, [selectedAnime]);
 
@@ -78,14 +98,36 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative">
-      {/* Animated background gradient */}
+      {/* Animated background gradient — dual-layer crossfade */}
       <div
-        className="fixed inset-0 -z-10 transition-opacity duration-700 ease-in-out"
-        style={{
-          background: displayGradient || undefined,
-          opacity,
-        }}
+        className="fixed inset-0 -z-10"
+        style={{ background: gradients.A || undefined, opacity: activeLayer === 'A' ? 1 : 0, transition: 'opacity 10s ease-in-out' }}
       />
+      <div
+        className="fixed inset-0 -z-10"
+        style={{ background: gradients.B || undefined, opacity: activeLayer === 'B' ? 1 : 0, transition: 'opacity 10s ease-in-out' }}
+      />
+
+      {/* Floating Japanese characters */}
+      <div className="fixed inset-0 -z-[5] pointer-events-none overflow-hidden">
+        {JP_CHARS.map(({ char, top, left, size, anim, dur, opacity: op }) => (
+          <span
+            key={char + left}
+            style={{
+              position: 'absolute',
+              top,
+              left,
+              fontSize: size,
+              opacity: op,
+              color: 'white',
+              fontFamily: 'serif',
+              animation: `${anim} ${dur} ease-in-out infinite`,
+            }}
+          >
+            {char}
+          </span>
+        ))}
+      </div>
       <HeroBanner />
       <div className="mb-4">
         <FeatureWeightControls
@@ -111,7 +153,7 @@ const Index = () => {
                 setSearchQuery("");
               }}
             />
-            <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
+            <div className="bg-card/60 backdrop-blur-md border border-white/10 rounded-lg p-4 shadow-xl">
               <SelectedAnimePanel anime={selectedAnime} />
             </div>
           </div>
@@ -120,7 +162,7 @@ const Index = () => {
         {/* Right Panel */}
         <div className="space-y-3">
           <h2 className="text-xl font-bold text-foreground">The Next to Watch</h2>
-          <div className="bg-card border border-border rounded-lg px-3 py-2 shadow-sm">
+          <div className="bg-card/60 backdrop-blur-md border border-white/10 rounded-lg px-3 py-2 shadow-xl">
               <FilterControls
               topK={topK}
               onTopKChange={setTopK}
@@ -134,8 +176,8 @@ const Index = () => {
               onSameComposerChange={setSameComposerOnly}
             />
           </div>
-          <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
-            <RecommendationPanel recommendations={recommendations} loading={loading} />
+          <div className="bg-card/60 backdrop-blur-md border border-white/10 rounded-lg p-4 shadow-xl">
+            <RecommendationPanel recommendations={recommendations} loading={loading} selectedTitle={selectedAnime?.title_english || selectedAnime?.title} />
           </div>
         </div>
       </div>

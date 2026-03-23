@@ -5,19 +5,21 @@ import { ChevronDown, Music } from "lucide-react";
 interface Props {
   anime: Anime & { similarity_score: number };
   rank: number;
+  index?: number;
 }
 
-const RecommendationCard = ({ anime, rank }: Props) => {
+const RecommendationCard = ({ anime, rank, index = 0 }: Props) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <div
       className="group rounded-xl transition-all hover:shadow-lg cursor-pointer"
+      style={{ animation: 'fadeSlideIn 0.5s ease-out both', animationDelay: `${index * 50}ms` }}
       onClick={() => setExpanded((e) => !e)}
     >
       <div className="flex gap-4 p-4">
         <div className="relative flex-shrink-0">
-          <span className="absolute -top-2 -left-2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shadow">
+          <span className="absolute -top-2 -left-2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-gradient-to-br from-white via-slate-100 to-slate-400 text-slate-700 text-xs font-bold shadow">
             {rank}
           </span>
           <img
@@ -29,12 +31,17 @@ const RecommendationCard = ({ anime, rank }: Props) => {
         </div>
         <div className="min-w-0 flex-1 space-y-2.5">
           <div className="flex items-start justify-between gap-2">
-            <h4 className="font-bold text-base leading-tight text-card-foreground">{anime.title}</h4>
+            <div className="min-w-0">
+              <h4 className="font-bold text-base leading-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">{anime.title_english || anime.title}</h4>
+              {anime.title_japanese && (
+                <p className="text-xs text-muted-foreground mt-0.5 truncate">{anime.title_japanese}</p>
+              )}
+            </div>
             <div className="flex items-center gap-1.5 flex-shrink-0">
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary" title="Similarity score">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-gradient-to-r from-white/20 via-slate-200/15 to-slate-400/20 text-white/70 border border-white/30" title="Similarity score">
                 Sim {anime.similarity_score.toFixed(3)}
               </span>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-yellow-500/15 text-yellow-600 dark:text-yellow-400">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">
                 ⭐ {anime.score}
               </span>
               <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${expanded ? "rotate-180" : ""}`} />

@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 
 interface TitleEntry {
   title: string;
+  title_english: string;
   artwork_url: string;
 }
 
@@ -23,7 +24,10 @@ const AnimeSearch = ({ titles, onSelect, query: controlledQuery, setQuery: setCo
   const setQuery = isControlled ? setControlledQuery : setUncontrolledQuery;
 
   const filtered = query
-    ? titles.filter((t) => t.title.toLowerCase().includes(query.toLowerCase())).slice(0, 50)
+    ? titles.filter((t) =>
+        t.title.toLowerCase().includes(query.toLowerCase()) ||
+        t.title_english.toLowerCase().includes(query.toLowerCase())
+      ).slice(0, 50)
     : titles.slice(0, 50);
 
   useEffect(() => {
@@ -63,7 +67,12 @@ const AnimeSearch = ({ titles, onSelect, query: controlledQuery, setQuery: setCo
                   loading="lazy"
                 />
               )}
-              <span className="font-medium text-sm">{entry.title}</span>
+              <div className="min-w-0">
+                <span className="font-medium text-sm block">{entry.title_english || entry.title}</span>
+                {entry.title_english && entry.title_english !== entry.title && (
+                  <span className="text-xs text-muted-foreground block truncate">{entry.title}</span>
+                )}
+              </div>
             </button>
           ))}
         </div>

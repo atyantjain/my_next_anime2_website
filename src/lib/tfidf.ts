@@ -6,6 +6,8 @@
 export interface AnimeRow {
   title: string;
   title_original: string;
+  title_english: string;
+  title_japanese: string;
   synopsis: string;
   genres: string;
   themes: string;
@@ -30,6 +32,8 @@ export interface FeatureWeights {
 
 export interface AnimeOut {
   title: string;
+  title_english: string;
+  title_japanese: string;
   synopsis: string;
   genres: string[];
   themes: string[];
@@ -234,6 +238,8 @@ export function rowToOut(row: AnimeRow, simScore: number): AnimeOut {
 
   return {
     title: row.title ?? "",
+    title_english: row.title_english ?? "",
+    title_japanese: row.title_japanese ?? "",
     synopsis: row.synopsis ?? "",
     genres: genresRaw.split(genreSep).map((g) => g.trim()).filter(Boolean),
     themes: themesRaw.split(themeSep).map((t) => t.trim()).filter(Boolean),

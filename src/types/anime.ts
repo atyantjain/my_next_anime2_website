@@ -1,5 +1,7 @@
 export interface Anime {
   title: string;
+  title_english: string;
+  title_japanese: string;
   synopsis: string;
   genres: string[];
   themes: string[];

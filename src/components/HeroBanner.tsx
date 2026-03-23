@@ -21,7 +21,7 @@ const HeroBanner = () => (
     {/* Title */}
     <div className="relative z-[2] py-8 px-6 w-full">
       <h1
-        className="font-black text-foreground uppercase w-full"
+        className="font-black uppercase w-full bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent"
         style={{
           fontFamily: "'Zenkaku Gothic New', 'Hiragino Kaku Gothic Pro', sans-serif",
           fontSize: "8vw",

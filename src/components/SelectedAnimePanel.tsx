@@ -11,7 +11,7 @@ const SelectedAnimePanel = ({ anime }: { anime: Anime | null }) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div key={anime.title} className="space-y-4" style={{ animation: 'fadeSlideIn 0.6s ease-out' }}>
       <div className="flex gap-4">
         <img
           src={anime.artwork_url}
@@ -20,7 +20,10 @@ const SelectedAnimePanel = ({ anime }: { anime: Anime | null }) => {
           loading="lazy"
         />
         <div className="space-y-1.5 min-w-0">
-          <h3 className="text-lg font-bold text-card-foreground leading-tight">{anime.title}</h3>
+          <h3 className="text-lg font-bold leading-tight bg-gradient-to-br from-white via-slate-300 to-slate-500 bg-clip-text text-transparent">{anime.title_english || anime.title}</h3>
+          {anime.title_japanese && (
+            <p className="text-sm text-muted-foreground">{anime.title_japanese}</p>
+          )}
           <p className="text-sm">⭐ <span className="font-semibold">{anime.score}</span> / 10</p>
           <p className="text-sm text-muted-foreground">{anime.episodes} episodes</p>
           <p className="text-sm text-muted-foreground">{anime.aired}</p>
