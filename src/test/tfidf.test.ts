@@ -34,7 +34,7 @@ const DEFAULT_WEIGHTS: FeatureWeights = {
   composer: 3,
   mood: 3,
   studio: 1,
-  synopsis: 2,
+  synopsis: 1,
 };
 
 // Build feature text the same way the worker does

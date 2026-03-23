@@ -10,7 +10,7 @@ const FEATURES = [
 ];
 
 const DEFAULT_WEIGHTS: FeatureWeights = {
-  genres: 1, themes: 3, composer: 3, mood: 3, studio: 1, synopsis: 2,
+  genres: 1, themes: 3, composer: 3, mood: 3, studio: 1, synopsis: 1,
 };
 
 interface Props {
