@@ -29,8 +29,8 @@ function makeRow(overrides: Partial<AnimeRow>): AnimeRow {
 }
 
 const DEFAULT_WEIGHTS: FeatureWeights = {
-  genres: 3,
-  themes: 2,
+  genres: 1,
+  themes: 3,
   composer: 3,
   mood: 3,
   studio: 1,
