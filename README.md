@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Website for the Anime recommendation project
 
-TODO: Document your project here
+www.mynextanime2.vercel.app
