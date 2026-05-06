@@ -1,26 +1,51 @@
-# MyNextAnime
+<div align="center">
 
-www.mynextanime2.vercel.app
+<h1 style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;">
+.✦ ݁˖ MyNextAnime
+</h1>
 
-MyNextAnime is a vibe-based anime recommendation platform focused on helping users discover shows based on atmosphere, themes, soundtrack feel, emotional tone, and storytelling style rather than just genres alone.
+<p>
+  <img src="https://skillicons.dev/icons?i=react,vite,vercel&theme=dark" />
+</p>
 
-The project was built as an interactive web application and is deployed on Vercel for fast and lightweight hosting.
+<p>
+  <img src="https://readme-typing-svg.herokuapp.com?font=SF+Pro+Display&size=22&duration=3000&pause=500&color=60A5FA&center=true&vCenter=true&width=600&lines=Anime+Recommendations+by+Vibe;Emotion+%2B+Atmosphere+Focused;Built+for+Immersive+Discovery" />
+</p>
+
+<p style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; font-size: 16px;">
+   www.mynextanime2.vercel.app
+</p>
+
+</div>
 
 ---
 
-## Project Overview
+## 🫧 What is MyNextAnime?
 
-Most anime recommendation systems focus heavily on watch history or broad genres. MyNextAnime was created to approach recommendations differently.
+Most anime recommendation systems focus heavily on:
+- Genres
+- Ratings
+- Watch history
 
-The platform focuses more on:
-- Emotional tone
-- Psychological themes
-- World atmosphere
-- Music and OST vibe
-- Narrative intensity
-- Mystery and immersion
+MyNextAnime was built differently.
 
-The recommendations are inspired by the feeling users get from shows like:
+Instead of asking:
+
+> *"What anime is similar by genre?"*
+
+The platform tries to answer:
+
+> *"What anime feels similar?"*
+
+The recommendation flow focuses more on:
+- ♪♫ Soundtrack and OST vibe
+- ࿓ Atmosphere and world feel
+- 𖡎 Psychological intensity
+- ❤︎ Emotional tone
+- ⌕ Mystery and immersion
+- ✎ᝰ. Narrative style
+
+Inspired by shows like:
 - Made in Abyss
 - Summer Time Rendering
 - Tokyo Ghoul
@@ -29,71 +54,102 @@ The recommendations are inspired by the feeling users get from shows like:
 
 ---
 
-## Development Process
+# 🦕 Development Process
 
-The project was initially scaffolded using Lovable to speed up the early frontend setup process.
+## Initial Setup with Lovable
 
-Lovable automatically generated the initial React + Vite project structure, basic UI components, configuration files, and frontend layout. This made it easier to quickly move from idea to a working prototype without manually configuring the project from scratch.
+The project was initially scaffolded using **Lovable** to speed up frontend development.
 
-After the initial setup, the application was heavily iterated and refined manually. A large part of the project involved improving:
-- UI structure
-- Layout consistency
+Lovable automatically generated:
+- React project structure
+- Vite configuration
+- Basic UI components
+- Frontend layout setup
+
+This allowed the project to move quickly from an idea into a working prototype.
+
+---
+
+## 🌊 Iterative UI Improvements
+
+After the initial setup, the project was heavily refined manually.
+
+A large part of development involved improving:
+- UI consistency
+- Layout structure
 - Recommendation flow
 - Styling and animations
-- User interaction experience
-- Overall visual identity and feel
+- Interaction design
+- Overall visual identity
 
-The goal was to move beyond a template-generated interface and create something that felt polished, immersive, and visually aligned with the anime community aesthetic.
-
----
-
-## Tech Stack
-
-### React
-React was used to build the frontend user interface using reusable UI components and dynamic rendering.
-
-### Vite
-The project uses Vite as the frontend build tool and development environment. Vite provides fast local development, hot reloading, and optimized production builds.
-
-The initial Vite configuration and project setup were automatically generated through Lovable.
-
-### JavaScript / TypeScript
-The frontend logic and UI interactions were developed using JavaScript / TypeScript.
-
-### Vercel
-The application is deployed on Vercel.
-
-Deployment is handled directly through GitHub integration:
-1. Push code to GitHub
-2. Connect the repository to Vercel
-3. Vercel automatically detects the Vite configuration
-4. The application is built and deployed automatically
-
-This allows fast continuous deployment without needing manual server configuration.
+The goal was to move beyond a template-generated interface and create something that felt immersive and aesthetically aligned with anime culture.
 
 ---
 
-## Features
+# ☰ Tech Stack
 
-- Vibe-based anime recommendations
-- Interactive and modern UI
-- Dynamic recommendation flow
-- Curated anime metadata
-- Responsive web experience
-- Lightweight deployment pipeline
-- Fast frontend hosting through Vercel
+## 🌀 React
+React was used to build the frontend using reusable and dynamic UI components.
 
 ---
 
-## Vision
+## 🪼 Vite
+The project uses **Vite** as the frontend build tool and development environment.
 
-The idea behind MyNextAnime was to create a recommendation experience that feels more human and emotional rather than purely algorithmic.
+Vite provides:
+- Faster local development
+- Hot reload support
+- Optimized production builds
 
-Instead of asking:
+The initial Vite configuration was automatically generated through Lovable.
 
-> “What anime is similar by genre?”
+---
 
-The platform tries to answer:
+## 🫐 Vercel Deployment
 
-> “What anime feels similar?”
+The application is deployed on **Vercel**.
 
+Deployment flow:
+```bash
+Push code to GitHub
+        ↓
+Connect repository to Vercel
+        ↓
+Vercel auto-detects Vite configuration
+        ↓
+Automatic production deployment
+```
+
+This allows fast continuous deployment without manually configuring servers.
+
+---
+
+# 🥏 Features
+
+-  Vibe-based anime recommendations
+-  Modern anime-inspired UI
+-  Responsive frontend experience
+-  Lightweight deployment pipeline
+-  Curated atmosphere-focused recommendations
+-  Dynamic recommendation flow
+
+---
+
+# 🧿 Vision
+
+The idea behind MyNextAnime was simple:
+
+Anime recommendations should feel emotional, not mechanical.
+
+The platform aims to recreate the feeling of:
+- discovering a hidden gem,
+- chasing a specific atmosphere,
+- or finding another anime that gives the same emotional experience as your favorite series.
+
+---
+
+<div align="center">
+
+### 🌙 Built for people who search anime by feeling, not just genre.
+
+</div>
