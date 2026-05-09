@@ -152,4 +152,6 @@ The platform aims to recreate the feeling of:
 
 ### 🌙 Built for people who search anime by feeling, not just genre.
 
+check it out
+
 </div>
